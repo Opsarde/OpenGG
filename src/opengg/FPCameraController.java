@@ -128,6 +128,8 @@ public class FPCameraController {
 
             // draw
             glLoadIdentity();
+            glEnable(GL_DEPTH_TEST);
+            glDepthFunc(GL_LESS);
             camera.lookThrough();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             render();
@@ -139,7 +141,7 @@ public class FPCameraController {
     }
 
     private void render() {
-        Cube3D cube = new Cube3D(new Vector3Float(0f, 0f, -5.0f), 2.0f);
+        Cube3D cube = new Cube3D(new Vector3Float(0f, 0f, -5.0f), 1.0f);
         cube.draw();
     }
 }
