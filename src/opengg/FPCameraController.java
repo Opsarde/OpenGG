@@ -139,7 +139,7 @@ public class FPCameraController {
     }
 
     private void render() {
-        Cube3D cube = new Cube3D(2.0f);
+        Cube3D cube = new Cube3D(new Vector3Float(0f, 0f, -5.0f), 2.0f);
         cube.draw();
     }
 }

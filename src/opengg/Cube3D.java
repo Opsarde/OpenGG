@@ -13,13 +13,16 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Cube3D {
     private float edgeLength;
+    private Vector3Float position;
 
-    public Cube3D(float edgeLength) {
+    public Cube3D(Vector3Float position, float edgeLength) {
         this.edgeLength = edgeLength;
+        this.position = position;
     }
 
     public void draw() {
         try {
+            glTranslatef(position.x, position.y, position.z);
             glBegin(GL_QUADS);
             //Top
             glColor3f(255.0f, 0.0f, 0.0f);
@@ -59,48 +62,48 @@ public class Cube3D {
             glVertex3f(edgeLength, -edgeLength, -edgeLength);
             glEnd();
             //Top
-            glBegin(GL_LINE_LOOP);
             glColor3f(255.0f, 0.0f, 0.0f);
+            glBegin(GL_LINE_LOOP);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glEnd();
             //Bottom         
-            glBegin(GL_LINE_LOOP);
             glColor3f(255.0f, 255.0f, 0.0f);
+            glBegin(GL_LINE_LOOP);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(edgeLength, -edgeLength, -edgeLength);
             glEnd();
             //Front
-            glBegin(GL_LINE_LOOP);
             glColor3f(0.0f, 255.0f, 255.0f);
+            glBegin(GL_LINE_LOOP);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
             glEnd();
             //Back
-            glBegin(GL_LINE_LOOP);
             glColor3f(0.0f, 255.0f, 0.0f);
+            glBegin(GL_LINE_LOOP);
             glVertex3f(edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glEnd();
             //Left
-            glBegin(GL_LINE_LOOP);
             glColor3f(0.0f, 0.0f, 255.0f);
+            glBegin(GL_LINE_LOOP);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             glEnd();
             //Right
-            glBegin(GL_LINE_LOOP);
             glColor3f(255.0f, 0.0f, 255.0f);
+            glBegin(GL_LINE_LOOP);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
