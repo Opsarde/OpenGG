@@ -21,33 +21,38 @@ public class Cube3D {
     public void draw() {
         try {
             glBegin(GL_QUADS);
-            glColor3f(0.0f, 0.0f, 1.0f);
             //Top
+            glColor3f(255.0f, 0.0f, 0.0f);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             //Bottom         
+            glColor3f(255.0f, 255.0f, 0.0f);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(edgeLength, -edgeLength, -edgeLength);
             //Front
+            glColor3f(0.0f, 255.0f, 255.0f);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
             //Back
+            glColor3f(0.0f, 255.0f, 0.0f);
             glVertex3f(edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             //Left
+            glColor3f(0.0f, 0.0f, 255.0f);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             //Right
+            glColor3f(255.0f, 0.0f, 255.0f);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
@@ -55,6 +60,7 @@ public class Cube3D {
             glEnd();
             //Top
             glBegin(GL_LINE_LOOP);
+            glColor3f(255.0f, 0.0f, 0.0f);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
@@ -62,6 +68,7 @@ public class Cube3D {
             glEnd();
             //Bottom         
             glBegin(GL_LINE_LOOP);
+            glColor3f(255.0f, 255.0f, 0.0f);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
@@ -69,6 +76,7 @@ public class Cube3D {
             glEnd();
             //Front
             glBegin(GL_LINE_LOOP);
+            glColor3f(0.0f, 255.0f, 255.0f);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, -edgeLength, edgeLength);
@@ -76,6 +84,7 @@ public class Cube3D {
             glEnd();
             //Back
             glBegin(GL_LINE_LOOP);
+            glColor3f(0.0f, 255.0f, 0.0f);
             glVertex3f(edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
@@ -83,6 +92,7 @@ public class Cube3D {
             glEnd();
             //Left
             glBegin(GL_LINE_LOOP);
+            glColor3f(0.0f, 0.0f, 255.0f);
             glVertex3f(-edgeLength, edgeLength, edgeLength);
             glVertex3f(-edgeLength, edgeLength, -edgeLength);
             glVertex3f(-edgeLength, -edgeLength, -edgeLength);
@@ -90,6 +100,7 @@ public class Cube3D {
             glEnd();
             //Right
             glBegin(GL_LINE_LOOP);
+            glColor3f(255.0f, 0.0f, 255.0f);
             glVertex3f(edgeLength, edgeLength, -edgeLength);
             glVertex3f(edgeLength, edgeLength, edgeLength);
             glVertex3f(edgeLength, -edgeLength, edgeLength);
