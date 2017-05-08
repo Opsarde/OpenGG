@@ -103,6 +103,8 @@ public class FPCameraController {
             lastTime = time;
             dx = Mouse.getDX();
             dy = Mouse.getDY();
+            camera.yaw(dx * mouseSensitivity);
+            camera.pitch(dy * mouseSensitivity);
 
             // Check input
             if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
@@ -133,6 +135,7 @@ public class FPCameraController {
             Display.sync(60);
         }
         Display.destroy();
+        Keyboard.destroy();
     }
 
     private void render() {
