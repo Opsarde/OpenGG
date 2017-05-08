@@ -139,16 +139,7 @@ public class FPCameraController {
     }
 
     private void render() {
-        try {
-            glBegin(GL_QUADS);
-            glColor3f(1.0f, 0.0f, 1.0f);
-            glVertex3f(1.0f, -1.0f, -1.0f);
-            glVertex3f(-1.0f, -1.0f, -1.0f);
-            glVertex3f(-1.0f, 1.0f, -1.0f);
-            glVertex3f(1.0f, 1.0f, -1.0f);
-            glEnd();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Cube3D cube = new Cube3D(2.0f);
+        cube.draw();
     }
 }
