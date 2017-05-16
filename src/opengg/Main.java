@@ -1,14 +1,17 @@
 /*************************************************************
  *     file: Main.java
- *     author: 
+ *     authors: OpenGG (Shun Lu, Roenyl Tisoy, Tuan Pham, Evan Gunell)
  *     class: CS 445 - Computer Graphics
  * 
  *     assignment: program 3
  *     last modified: 5/9/2017
  * 
+ *     purpose: This class displays an OpenGL window with size
+ *     640 x 480, creates a Keyboard object, and initializes the
+ *     projection matrix.
  * 
  *************************************************************/
-package opengg;
+
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -16,10 +19,6 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.GLU;
 
-/**
- *
- * @author Shun Lu
- */
 public class Main {
     private FPCameraController fp = new FPCameraController(0f, 0f, 0f);
     private DisplayMode displayMode;
@@ -84,7 +83,6 @@ public class Main {
     /**
      * METHOD: main
      * PURPOSE: run the OpenGL program
-     * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
