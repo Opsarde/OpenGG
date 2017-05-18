@@ -1,14 +1,17 @@
 /*************************************************************
  *     file: Main.java
- *     author: 
+ *     authors: OpenGG (Shun Lu, Roenyl Tisoy, Tuan Pham, Evan Gunell)
  *     class: CS 445 - Computer Graphics
  * 
  *     assignment: program 3
  *     last modified: 5/9/2017
  * 
+ *     purpose: This class displays an OpenGL window with size
+ *     640 x 480, creates a Keyboard object, and initializes the
+ *     projection matrix.
  * 
  *************************************************************/
-package opengg;
+//package opengg;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;

@@ -1,9 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package opengg;
+/*************************************************************
+ *     file: Chunk.java
+ *     authors: OpenGG (Shun Lu, Roenyl Tisoy, Tuan Pham, Evan Gunell)
+ *     class: CS 445 - Computer Graphics
+ * 
+ *     assignment: program 3
+ *     last modified: 5/9/2017
+ * 
+ *     purpose: This class bundles up a number of blocks together and then
+*      makes a single call to the renderer for each cube.
+ * 
+ * 
+ *************************************************************/
+
+//package opengg;
 
 /**
  *
@@ -19,6 +28,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
+
 public class Chunk {
     static final int CHUNK_SIZE = 30;
     static final int CUBE_LENGTH = 2;
@@ -30,7 +40,10 @@ public class Chunk {
     private int VBOTextureHandle;
     private Texture texture;
 
-    
+    /**
+     * METHOD: render
+     * PURPOSE: draws our cubes together in a chunk
+     */
     public void render(){
         glPushMatrix();
         glPushMatrix();
@@ -49,37 +62,56 @@ public class Chunk {
         glPopMatrix();
     }
     
+    /**
+     * METHOD: rebuildMesh
+     * PURPOSE: Creates all of the cubes and textures them
+     */
     public void rebuildMesh(float startX, float startY, float startZ) {
+        Random seed = new Random();
+        SimplexNoise noise = new SimplexNoise(70, .07f, seed.nextInt());
+        
         VBOColorHandle = glGenBuffers();
         VBOVertexHandle = glGenBuffers();
         VBOTextureHandle = glGenBuffers(); 
-        
-        FloatBuffer VertexTextureData = BufferUtils.createFloatBuffer((CHUNK_SIZE*CHUNK_SIZE *CHUNK_SIZE)* 6 * 12);
-        FloatBuffer VertexPositionData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE *CHUNK_SIZE) * 6 * 12);
-        FloatBuffer VertexColorData = BufferUtils.createFloatBuffer((CHUNK_SIZE* CHUNK_SIZE *CHUNK_SIZE) * 6 * 12);
+        FloatBuffer VertexPositionData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) * 6 * 12);
+        FloatBuffer VertexColorData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE) * 6 * 12);
+        FloatBuffer VertexTextureData = BufferUtils.createFloatBuffer((CHUNK_SIZE * CHUNK_SIZE *CHUNK_SIZE)* 6 * 12);
+       
         for (float x = 0; x < CHUNK_SIZE; x += 1) {
             for (float z = 0; z < CHUNK_SIZE; z += 1) {
-                for(float y = 0; y < CHUNK_SIZE; y++){
-                    VertexPositionData.put(createCube((float) (startX + x* CUBE_LENGTH),(float)(y*CUBE_LENGTH+(int)(CHUNK_SIZE*.8)),(float) (startZ + z *CUBE_LENGTH)));
-                    VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
-                    VertexTextureData.put(createTexCube((float) 0, (float)0,Blocks[(int)(x)][(int) (y)][(int) (z)]));
+                for (float y = 0; y < CHUNK_SIZE; y++) {
+                    float i = startX + x *((10 - startX) / 12);
+                    float j = startY + z *((10 - startY) / 12);
+                    float k = startZ + z *((10 - startZ) / 12);
+                    int height = Math.abs((int)(startY + (int)(100 * noise.getNoise((int)i, (int)j, (int)k)) * CUBE_LENGTH));
+                    if(y <= height) {
+                        VertexPositionData.put(createCube((float) (startX + x * CUBE_LENGTH), (float) (y * CUBE_LENGTH + (int)(CHUNK_SIZE * .8)), (float) (startZ + z * CUBE_LENGTH)));
+                        VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
+                        VertexTextureData.put(createTexCube((float) 0, (float) 0, Blocks[(int)(x)][(int)(y)][(int)(z)]));
                     }
                 }
+            }
         }
+       
         VertexColorData.flip();
         VertexPositionData.flip();
-        
+        VertexTextureData.flip();
         glBindBuffer(GL_ARRAY_BUFFER, VBOVertexHandle);
-        glBufferData(GL_ARRAY_BUFFER,VertexPositionData,GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, VertexPositionData, GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindBuffer(GL_ARRAY_BUFFER,VBOColorHandle);
-        glBufferData(GL_ARRAY_BUFFER,VertexColorData,GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, VBOColorHandle);
+        glBufferData(GL_ARRAY_BUFFER, VertexColorData, GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ARRAY_BUFFER, VBOTextureHandle);
-        glBufferData(GL_ARRAY_BUFFER, VertexTextureData, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, VertexTextureData,
+        GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     
+    /**
+     * METHOD: createCubeVertexCol
+     * PURPOSE: Stores cubes in a column
+     */
     private float[] createCubeVertexCol(float[] CubeColorArray) {
         float[] cubeColors = new float[CubeColorArray.length * 4 * 6];
         for (int i = 0; i < cubeColors.length; i++) {
@@ -89,6 +121,10 @@ public class Chunk {
         return cubeColors;
     }
     
+    /**
+     * METHOD: createCube
+     * PURPOSE: Creates individual cubes
+     */
     public static float[] createCube(float x, float y, float z) {
         int offset = CUBE_LENGTH / 2;
         return new float[] {
@@ -124,19 +160,18 @@ public class Chunk {
         x + offset, y - offset, z };
     }
     
+    /**
+     * METHOD: getCubeColor
+     * PURPOSE: Returns cube color
+     */
     private float[] getCubeColor(Block block) {
-//        switch (block.GetID()) {
-//        case 1:
-//        return new float[] { 0, 1, 0 };
-//        case 2:
-//        return new float[] { 1, 0.5f, 0 };
-//        case 3:
-//        return new float[] { 0, 0f, 1f };
-//        }
-//        return new float[] { 1, 1, 1 };
           return new float[] { 1, 1, 1 };
     }
     
+    /**
+     * METHOD: Chunk
+     * PURPOSE: Constructs our Chunk
+     */
     public Chunk(int startX, int startY, int startZ) {
         try {
             texture = TextureLoader.getTexture("PNG",ResourceLoader.getResourceAsStream("terrain.png"));
@@ -180,6 +215,10 @@ public class Chunk {
         rebuildMesh(startX, startY, startZ);
     }
     
+    /**
+     * METHOD: createTexCube
+     * PURPOSE: Textures each cube
+     */
     public static float[] createTexCube(float x, float y, Block block) {
         float offset = (1024f/16)/1024f;
         switch (block.GetID()) {
