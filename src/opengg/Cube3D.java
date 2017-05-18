@@ -10,7 +10,7 @@
  *     cube.
  * 
  *************************************************************/
-//package opengg;
+package opengg;
 
 import static org.lwjgl.opengl.GL11.*;
 

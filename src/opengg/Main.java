@@ -11,7 +11,7 @@
  *     projection matrix.
  * 
  *************************************************************/
-//package opengg;
+package opengg;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
