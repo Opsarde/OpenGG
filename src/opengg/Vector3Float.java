@@ -11,10 +11,12 @@
  * 
  *************************************************************/
 
+package opengg;
+
 
 public class Vector3Float {
     public float x, y, z;
-    
+        
     /**
      * METHOD: constructor
      * PURPOSE: creates a Vector3Float object with x, y, and z parameters

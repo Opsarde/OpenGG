@@ -12,6 +12,8 @@
  * 
  *************************************************************/
 
+package opengg;
+
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -28,19 +30,22 @@ public class FPCameraController {
     //the rotation around the X axis of the camera
     private float pitch = 0.0f;
     private Vector3Float me;
-
+    private Chunk chunk;
+   
     /**
      * METHOD: constructor
      * PURPOSE: instantiates position of Vector3f to the x, y, and z parameters
      */
     public FPCameraController(float x, float y, float z) {
+    //instantiate position Vector3f to the x y z params.
         position = new Vector3f(x, y, z);
         lPosition= new Vector3f(x, y, z);
         lPosition.x = 0f;
         lPosition.y = 15f;
         lPosition.z = 0f;
+        chunk = new Chunk((int) x, (int) y, (int) z);
     }
-
+    
     /**
      * METHOD: yaw
      * PURPOSE: sets the yaw Euler angle to the parameter
@@ -67,7 +72,7 @@ public class FPCameraController {
         position.x -= xOffset;
         position.z += zOffset;
     }
-
+    
     /**
      * METHOD: walkBackward
      * PURPOSE: calculates the distance the 3D Cube moves backward
@@ -90,7 +95,7 @@ public class FPCameraController {
         position.z += zOffset;
     }
 
-    /**
+     /**
      * METHOD: strafeRight
      * PURPOSE: calculates the distance the 3D Cube strafes right
      */
@@ -101,15 +106,15 @@ public class FPCameraController {
         position.z += zOffset;
     }
 
-    /**
+     /**
      * METHOD: moveUp
      * PURPOSE: calculates the distance the 3D Cube moves up
      */
     public void moveUp(float distance) {
         position.y -= distance;
     }
-
-    /**
+    
+     /**
      * METHOD: moveDown
      * PURPOSE: calculates the distance the 3D Cube moves down
      */
@@ -135,6 +140,7 @@ public class FPCameraController {
      */
     public void gameLoop() {
         FPCameraController camera = new FPCameraController(0, 0, 0);
+
         float dx = 0.0f;
         float dy = 0.0f;
         float dt = 0.0f;
@@ -180,7 +186,7 @@ public class FPCameraController {
             glDepthFunc(GL_LESS);
             camera.lookThrough();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            render();
+            chunk.render();
             Display.update();
             Display.sync(60);
         }

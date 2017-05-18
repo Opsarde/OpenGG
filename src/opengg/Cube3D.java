@@ -10,18 +10,23 @@
  *     cube.
  * 
  *************************************************************/
+package opengg;
 
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ *
+ * @author shun7817
+ */
 public class Cube3D {
     private float edgeLength;
     private Vector3Float position;
-    
+
     /**
-     * METHOD: constructor
-     * PURPOSE: initializes the Cube3D object with the given edge length
-     * and positions it at the given parameter
-     */
+    * METHOD: constructor
+    * PURPOSE: initializes the Cube3D object with the given edge length
+    * and positions it at the given parameter
+    */
     public Cube3D(Vector3Float position, float edgeLength) {
         this.edgeLength = edgeLength;
         this.position = position;
