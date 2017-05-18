@@ -21,7 +21,7 @@ import org.lwjgl.util.glu.GLU;
  * @author Shun Lu
  */
 public class Main {
-    private FPCameraController fp = new FPCameraController(0f, 0f, 0f);
+    private FPCameraController fp;
     private DisplayMode displayMode;
     /**
      * METHOD: start
@@ -33,6 +33,7 @@ public class Main {
             createKeyboard();
             initGL();
             //render();
+            fp = new FPCameraController(0f, 0f, 0f);
             fp.gameLoop();
         } catch (Exception e) {
             // what is the error
@@ -79,6 +80,11 @@ public class Main {
                 (float)displayMode.getHeight(), 0.1f, 300.0f);
         glMatrixMode(GL_MODELVIEW);
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        glEnableClientState(GL_VERTEX_ARRAY);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_TEXTURE_2D);
+        glEnableClientState (GL_TEXTURE_COORD_ARRAY);
     }
     
     /**

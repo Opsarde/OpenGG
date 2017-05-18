@@ -25,6 +25,7 @@ public class FPCameraController {
     //the rotation around the X axis of the camera
     private float pitch = 0.0f;
     private Vector3Float me;
+    private Chunk chunk;
 
     public FPCameraController(float x, float y, float z) {
     //instantiate position Vector3f to the x y z params.
@@ -33,6 +34,7 @@ public class FPCameraController {
         lPosition.x = 0f;
         lPosition.y = 15f;
         lPosition.z = 0f;
+        chunk = new Chunk((int) x, (int) y, (int) z);
     }
 
     public void yaw(float amount) {
@@ -87,6 +89,7 @@ public class FPCameraController {
 
     public void gameLoop() {
         FPCameraController camera = new FPCameraController(0, 0, 0);
+
         float dx = 0.0f;
         float dy = 0.0f;
         float dt = 0.0f;
@@ -132,7 +135,7 @@ public class FPCameraController {
             glDepthFunc(GL_LESS);
             camera.lookThrough();
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            render();
+            chunk.render();
             Display.update();
             Display.sync(60);
         }
