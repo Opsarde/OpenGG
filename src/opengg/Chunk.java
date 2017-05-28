@@ -87,13 +87,32 @@ public class Chunk {
                     if(y <= height) {
                         // Set ID here
                         if (y == 0) {
-                            Blocks[(int)(x)][(int)(y)][(int)(z)] = new Block(Block.BlockType.BlockType_Bedrock);
+                            Blocks[(int)(x)][(int)(y)][(int)(z)] = new 
+                            Block(Block.BlockType.BlockType_Bedrock);
                         }
                         else if (y == height) {
-                            
+                            if (r.nextFloat() > 0.66f) {
+                                Blocks[(int)(x)][(int)(y)][(int)(z)] = new
+                                Block(Block.BlockType.BlockType_Water);
+                            }
+                            else if (r.nextFloat() > 0.33f) {
+                                Blocks[(int)(x)][(int)(y)][(int)(z)] = new
+                                Block(Block.BlockType.BlockType_Sand);                
+                            }
+                            else {
+                                Blocks[(int)(x)][(int)(y)][(int)(z)] = new
+                                Block(Block.BlockType.BlockType_Grass);
+                            }
                         }
                         else {
-                            
+                            if (r.nextFloat() > 0.5f) {
+                                Blocks[(int)(x)][(int)(y)][(int)(z)] = new
+                                Block(Block.BlockType.BlockType_Dirt);
+                            }
+                            else {
+                                Blocks[(int)(x)][(int)(y)][(int)(z)] = new
+                                Block(Block.BlockType.BlockType_Stone);
+                            }
                         }
                         VertexPositionData.put(createCube((float) (startX + x * CUBE_LENGTH), (float) (y * CUBE_LENGTH + (int)(CHUNK_SIZE * .8)), (float) (startZ + z * CUBE_LENGTH)));
                         VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
