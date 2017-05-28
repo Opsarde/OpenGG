@@ -85,6 +85,16 @@ public class Chunk {
                     float k = startZ + z *((10 - startZ) / 12);
                     int height = Math.abs((int)(startY + (int)(100 * noise.getNoise((int)i, (int)j, (int)k)) * CUBE_LENGTH));
                     if(y <= height) {
+                        // Set ID here
+                        if (y == 0) {
+                            Blocks[(int)(x)][(int)(y)][(int)(z)] = new Block(Block.BlockType.BlockType_Bedrock);
+                        }
+                        else if (y == height) {
+                            
+                        }
+                        else {
+                            
+                        }
                         VertexPositionData.put(createCube((float) (startX + x * CUBE_LENGTH), (float) (y * CUBE_LENGTH + (int)(CHUNK_SIZE * .8)), (float) (startZ + z * CUBE_LENGTH)));
                         VertexColorData.put(createCubeVertexCol(getCubeColor(Blocks[(int) x][(int) y][(int) z])));
                         VertexTextureData.put(createTexCube((float) 0, (float) 0, Blocks[(int)(x)][(int)(y)][(int)(z)]));
