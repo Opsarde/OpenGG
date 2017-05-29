@@ -13,11 +13,13 @@
  *************************************************************/
 package opengg;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.GLU;
+import java.nio.FloatBuffer;
 
 /**
  *
@@ -26,6 +28,8 @@ import org.lwjgl.util.glu.GLU;
 public class Main {
     private FPCameraController fp;
     private DisplayMode displayMode;
+    private FloatBuffer lightPosition;
+    private FloatBuffer whiteLight;
     /**
      * METHOD: start
      * PURPOSE: method to start GL window and render
@@ -72,6 +76,17 @@ public class Main {
     }
 
     /**
+     * METHOD: initLightArrays
+     * PURPOSE: define where is the light source
+     */
+    private void initLightArrays() {
+        lightPosition = BufferUtils.createFloatBuffer(4);
+        lightPosition.put(0.0f).put(0.0f).put(0.0f).put(1.0f).flip();
+
+        whiteLight = BufferUtils.createFloatBuffer(4);
+        whiteLight.put(1.0f).put(1.0f).put(1.0f).put(0.0f).flip();
+    }
+    /**
      * METHOD: initGL
      * PURPOSE: method that initialize projection matrix on window 
      */
@@ -88,6 +103,13 @@ public class Main {
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_TEXTURE_2D);
         glEnableClientState (GL_TEXTURE_COORD_ARRAY);
+        initLightArrays();
+        glLight(GL_LIGHT0, GL_POSITION, lightPosition);
+        glLight(GL_LIGHT0, GL_SPECULAR, whiteLight);
+        glLight(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+        glLight(GL_LIGHT0, GL_AMBIENT, whiteLight);
+        glEnable(GL_LIGHTING);
+        glEnable(GL_LIGHT0);
     }
     
     /**
